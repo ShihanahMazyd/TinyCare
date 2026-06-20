@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="tinycare_green">#0F5B52</color>
+    <color name="tinycare_dark">#143B36</color>
+    <color name="tinycare_bg">#F4FAF6</color>
+    <color name="tinycare_hint">#7A8A86</color>
+    <color name="tinycare_border">#D8E2DE</color>
 </resources>
