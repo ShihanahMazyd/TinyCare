@@ -1,8 +1,7 @@
 package com.shihanah.tinycare;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,16 +10,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class AddChildActivity extends AppCompatActivity {
 
-    ImageView backButton;
-    AppCompatButton loginButton;
+    AppCompatButton saveChildButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add_child);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -28,21 +26,10 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        backButton = findViewById(R.id.backButton);
-        loginButton = findViewById(R.id.loginButton);
+        saveChildButton = findViewById(R.id.saveChildButton);
 
-        backButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ChooseAccountActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
-        loginButton.setOnClickListener(v -> {
-
-            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
-
-            startActivity(intent);
-
+        saveChildButton.setOnClickListener(v -> {
+            Toast.makeText(AddChildActivity.this, "Child saved successfully", Toast.LENGTH_SHORT).show();
         });
     }
 }

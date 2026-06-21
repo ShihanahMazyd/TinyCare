@@ -9,67 +9,81 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
         android:padding="28dp">
 
         <ImageView
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:src="@drawable/tinycare_logo"
-            android:background="@android:color/transparent"
-            android:contentDescription="TinyCare logo"
-            android:scaleType="fitCenter" />
+            android:id="@+id/backButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_media_previous"
+            android:contentDescription="Back"
+            android:layout_marginBottom="20dp" />
 
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome to TinyCare"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            android:textColor="@color/tinycare_dark"
-            android:layout_marginTop="18dp" />
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign in to manage your nursery"
-            android:textColor="@color/tinycare_hint"
-            android:textSize="16sp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="34dp" />
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:src="@drawable/tinycare_logo"
+                android:background="@android:color/transparent"
+                android:contentDescription="TinyCare logo"
+                android:scaleType="fitCenter" />
 
-        <EditText
-            android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:padding="16dp"
-            android:background="#FFFFFF"
-            android:autofillHints="emailAddress" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to TinyCare"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:textColor="@color/tinycare_dark"
+                android:layout_marginTop="18dp" />
 
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="16dp"
-            android:background="#FFFFFF"
-            android:layout_marginTop="14dp"
-            android:autofillHints="password" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign in to manage your nursery"
+                android:textColor="@color/tinycare_hint"
+                android:textSize="16sp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="34dp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Login"
-            android:textColor="#FFFFFF"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            android:background="@drawable/button_background"
-            android:layout_marginTop="24dp" />
+            <EditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:padding="16dp"
+                android:background="#FFFFFF"
+                android:autofillHints="emailAddress" />
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="16dp"
+                android:background="#FFFFFF"
+                android:layout_marginTop="14dp"
+                android:autofillHints="password" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Login"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:background="@drawable/button_background"
+                android:layout_marginTop="24dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
