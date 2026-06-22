@@ -1,8 +1,7 @@
 package com.shihanah.tinycare;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,16 +10,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ChildrenActivity extends AppCompatActivity {
+public class DailyEventActivity extends AppCompatActivity {
 
-    AppCompatButton addChildButton;
-    TextView sampleChildCard;
+    AppCompatButton saveEventButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_children);
+        setContentView(R.layout.activity_daily_event);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -28,17 +26,10 @@ public class ChildrenActivity extends AppCompatActivity {
             return insets;
         });
 
-        addChildButton = findViewById(R.id.addChildButton);
-        sampleChildCard = findViewById(R.id.sampleChildCard);
+        saveEventButton = findViewById(R.id.saveEventButton);
 
-        addChildButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ChildrenActivity.this, AddChildActivity.class);
-            startActivity(intent);
-        });
-
-        sampleChildCard.setOnClickListener(v -> {
-            Intent intent = new Intent(ChildrenActivity.this, ChildDetailsActivity.class);
-            startActivity(intent);
+        saveEventButton.setOnClickListener(v -> {
+            Toast.makeText(DailyEventActivity.this, "Daily event saved successfully", Toast.LENGTH_SHORT).show();
         });
     }
 }

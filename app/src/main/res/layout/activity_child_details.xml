@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tinycare_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Child Details"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/tinycare_dark" />
+
+        <TextView
+            android:id="@+id/childNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Child Name: Sara"
+            android:textSize="18sp"
+            android:textColor="@color/tinycare_dark"
+            android:layout_marginTop="28dp" />
+
+        <TextView
+            android:id="@+id/childAgeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age: 4"
+            android:textSize="18sp"
+            android:textColor="@color/tinycare_dark"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/parentNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parent: Reem"
+            android:textSize="18sp"
+            android:textColor="@color/tinycare_dark"
+            android:layout_marginTop="12dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addDailyEventButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Add Daily Event"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="32dp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -38,5 +38,17 @@
             android:textSize="16sp"
             android:background="@drawable/button_background" />
 
+        <TextView
+            android:id="@+id/sampleChildCard"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:text="Sara Ahmed\nAge: 4 years"
+            android:textSize="18sp"
+            android:textColor="@color/tinycare_dark"
+            android:gravity="center_vertical"
+            android:padding="18dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="24dp" />
+
     </LinearLayout>
 </ScrollView>

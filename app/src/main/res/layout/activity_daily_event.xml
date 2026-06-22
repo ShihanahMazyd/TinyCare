@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tinycare_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Daily Event"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/tinycare_dark" />
+
+        <EditText
+            android:id="@+id/mealEditText"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="Meal"
+            android:padding="16dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="24dp" />
+
+        <EditText
+            android:id="@+id/napEditText"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="Nap"
+            android:padding="16dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="14dp" />
+
+        <EditText
+            android:id="@+id/moodEditText"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="Mood"
+            android:padding="16dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="14dp" />
+
+        <EditText
+            android:id="@+id/notesEditText"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:hint="Notes"
+            android:gravity="top"
+            android:padding="16dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="14dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/saveEventButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Save Event"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="24dp" />
+
+    </LinearLayout>
+</ScrollView>

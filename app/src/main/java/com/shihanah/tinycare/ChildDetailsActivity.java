@@ -2,7 +2,6 @@ package com.shihanah.tinycare;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,16 +10,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ChildrenActivity extends AppCompatActivity {
+public class ChildDetailsActivity extends AppCompatActivity {
 
-    AppCompatButton addChildButton;
-    TextView sampleChildCard;
+    AppCompatButton addDailyEventButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_children);
+        setContentView(R.layout.activity_child_details);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -28,16 +26,10 @@ public class ChildrenActivity extends AppCompatActivity {
             return insets;
         });
 
-        addChildButton = findViewById(R.id.addChildButton);
-        sampleChildCard = findViewById(R.id.sampleChildCard);
+        addDailyEventButton = findViewById(R.id.addDailyEventButton);
 
-        addChildButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ChildrenActivity.this, AddChildActivity.class);
-            startActivity(intent);
-        });
-
-        sampleChildCard.setOnClickListener(v -> {
-            Intent intent = new Intent(ChildrenActivity.this, ChildDetailsActivity.class);
+        addDailyEventButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ChildDetailsActivity.this, DailyEventActivity.class);
             startActivity(intent);
         });
     }
