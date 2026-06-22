@@ -2,7 +2,6 @@ package com.shihanah.tinycare;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,19 +10,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class ParentDashboardActivity extends AppCompatActivity {
 
-    ImageView backButton;
-    AppCompatButton loginButton;
-    String accountType;
+    AppCompatButton dailyUpdateButton, childInfoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-
-        accountType = getIntent().getStringExtra("accountType");
+        setContentView(R.layout.activity_parent_dashboard);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -31,24 +26,16 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        backButton = findViewById(R.id.backButton);
-        loginButton = findViewById(R.id.loginButton);
+        dailyUpdateButton = findViewById(R.id.dailyUpdateButton);
+        childInfoButton = findViewById(R.id.childInfoButton);
 
-        backButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ChooseAccountActivity.class);
+        dailyUpdateButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ParentDashboardActivity.this, DailyEventActivity.class);
             startActivity(intent);
-            finish();
         });
 
-        loginButton.setOnClickListener(v -> {
-            Intent intent;
-
-            if ("parent".equals(accountType)) {
-                intent = new Intent(MainActivity.this, ParentDashboardActivity.class);
-            } else {
-                intent = new Intent(MainActivity.this, DashboardActivity.class);
-            }
-
+        childInfoButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ParentDashboardActivity.this, ChildDetailsActivity.class);
             startActivity(intent);
         });
     }

@@ -20,11 +20,13 @@ public class ChooseAccountActivity extends AppCompatActivity {
 
         nurseryButton.setOnClickListener(v -> {
             Intent intent = new Intent(ChooseAccountActivity.this, MainActivity.class);
+            intent.putExtra("accountType", "nursery");
             startActivity(intent);
         });
 
         parentButton.setOnClickListener(v -> {
             Intent intent = new Intent(ChooseAccountActivity.this, MainActivity.class);
+            intent.putExtra("accountType", "parent");
             startActivity(intent);
         });
     }
