@@ -6,14 +6,12 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class ChildrenActivity extends AppCompatActivity {
 
-    AppCompatButton addChildButton;
     TextView sampleChildCard;
 
     @Override
@@ -28,13 +26,7 @@ public class ChildrenActivity extends AppCompatActivity {
             return insets;
         });
 
-        addChildButton = findViewById(R.id.addChildButton);
         sampleChildCard = findViewById(R.id.sampleChildCard);
-
-        addChildButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ChildrenActivity.this, AddChildActivity.class);
-            startActivity(intent);
-        });
 
         sampleChildCard.setOnClickListener(v -> {
             Intent intent = new Intent(ChildrenActivity.this, ChildDetailsActivity.class);

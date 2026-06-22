@@ -28,16 +28,6 @@
             android:layout_marginTop="6dp"
             android:layout_marginBottom="24dp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/addChildButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Add New Child"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:background="@drawable/button_background" />
-
         <TextView
             android:id="@+id/sampleChildCard"
             android:layout_width="match_parent"
