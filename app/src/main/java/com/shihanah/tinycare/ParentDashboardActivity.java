@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.widget.Toast;
 
 public class ParentDashboardActivity extends AppCompatActivity {
 
@@ -30,13 +31,16 @@ public class ParentDashboardActivity extends AppCompatActivity {
         childInfoButton = findViewById(R.id.childInfoButton);
 
         dailyUpdateButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ParentDashboardActivity.this, DailyEventActivity.class);
+            Intent intent = new Intent(ParentDashboardActivity.this, DailyReportsActivity.class);
             startActivity(intent);
         });
 
         childInfoButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ParentDashboardActivity.this, ChildDetailsActivity.class);
-            startActivity(intent);
+            Toast.makeText(
+                    ParentDashboardActivity.this,
+                    "Child information will appear here after linking the parent account to a child profile.",
+                    Toast.LENGTH_LONG
+            ).show();
         });
     }
 }

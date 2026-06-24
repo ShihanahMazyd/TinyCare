@@ -6,6 +6,7 @@
     android:background="@color/tinycare_bg">
 
     <LinearLayout
+        android:id="@+id/reportsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -14,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Children List"
+            android:text="Daily Reports"
             android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="@color/tinycare_dark" />
@@ -22,18 +23,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Manage nursery children records"
+            android:text="View saved daily events"
             android:textSize="16sp"
             android:textColor="@color/tinycare_hint"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="24dp" />
 
-        <LinearLayout
-            android:id="@+id/childrenListContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
     </LinearLayout>
-
 </ScrollView>

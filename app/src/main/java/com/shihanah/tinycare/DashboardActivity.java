@@ -10,6 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.widget.Toast;
+import android.content.Intent;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -51,7 +52,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         // Daily Reports
         reportsButton.setOnClickListener(v -> {
-            Toast.makeText(DashboardActivity.this, "Daily Reports screen coming soon", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(DashboardActivity.this, DailyReportsActivity.class);
+            startActivity(intent);
         });
     }
 }

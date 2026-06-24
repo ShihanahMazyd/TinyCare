@@ -46,6 +46,25 @@
             android:textColor="@color/tinycare_dark"
             android:layout_marginTop="12dp" />
 
+
+        <TextView
+            android:id="@+id/parentPhoneText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone:"
+            android:textSize="18sp"
+            android:textColor="@color/tinycare_dark"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/notesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notes:"
+            android:textSize="18sp"
+            android:textColor="@color/tinycare_dark"
+            android:layout_marginTop="12dp" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addDailyEventButton"
             android:layout_width="match_parent"
