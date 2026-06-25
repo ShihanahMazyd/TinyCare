@@ -14,12 +14,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class DailyReportsActivity extends AppCompatActivity {
 
     LinearLayout reportsContainer;
     FirebaseFirestore db;
+    String childId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +38,23 @@ public class DailyReportsActivity extends AppCompatActivity {
         reportsContainer = findViewById(R.id.reportsContainer);
         db = FirebaseFirestore.getInstance();
 
+        childId = getIntent().getStringExtra("childId");
+
         loadDailyReports();
     }
 
     private void loadDailyReports() {
-        db.collection("dailyEvents")
-                .get()
+        Query query = db.collection("dailyEvents");
+
+        if (childId != null) {
+            query = query.whereEqualTo("childId", childId);
+        }
+
+        query.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 
+                        String childName = document.getString("childName");
                         String meal = document.getString("meal");
                         String nap = document.getString("nap");
                         String mood = document.getString("mood");
@@ -53,7 +63,8 @@ public class DailyReportsActivity extends AppCompatActivity {
                         TextView reportCard = new TextView(DailyReportsActivity.this);
 
                         reportCard.setText(
-                                "Meal: " + meal +
+                                "Child: " + childName +
+                                        "\nMeal: " + meal +
                                         "\nNap: " + nap +
                                         "\nMood: " + mood +
                                         "\nNotes: " + notes
@@ -70,7 +81,6 @@ public class DailyReportsActivity extends AppCompatActivity {
                                 ViewGroup.LayoutParams.WRAP_CONTENT
                         );
                         params.setMargins(0, 0, 0, dp(16));
-
                         reportCard.setLayoutParams(params);
 
                         reportsContainer.addView(reportCard);

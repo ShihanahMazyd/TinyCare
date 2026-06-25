@@ -48,6 +48,7 @@ public class ChildrenActivity extends AppCompatActivity {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 
+                        String childId = document.getId();
                         String name = document.getString("childName");
                         String age = document.getString("childAge");
                         String parentName = document.getString("parentName");
@@ -73,6 +74,7 @@ public class ChildrenActivity extends AppCompatActivity {
 
                         childCard.setOnClickListener(v -> {
                             Intent intent = new Intent(ChildrenActivity.this, ChildDetailsActivity.class);
+                            intent.putExtra("childId", childId);
                             intent.putExtra("childName", name);
                             intent.putExtra("childAge", age);
                             intent.putExtra("parentName", parentName);

@@ -22,6 +22,8 @@ public class DailyEventActivity extends AppCompatActivity {
     AppCompatButton saveEventButton;
     FirebaseFirestore db;
 
+    String childId, childName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,9 @@ public class DailyEventActivity extends AppCompatActivity {
         });
 
         db = FirebaseFirestore.getInstance();
+
+        childId = getIntent().getStringExtra("childId");
+        childName = getIntent().getStringExtra("childName");
 
         mealEditText = findViewById(R.id.mealEditText);
         napEditText = findViewById(R.id.napEditText);
@@ -57,6 +62,8 @@ public class DailyEventActivity extends AppCompatActivity {
         }
 
         Map<String, Object> event = new HashMap<>();
+        event.put("childId", childId);
+        event.put("childName", childName);
         event.put("meal", meal);
         event.put("nap", nap);
         event.put("mood", mood);

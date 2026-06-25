@@ -14,7 +14,9 @@ import androidx.core.view.WindowInsetsCompat;
 public class ChildDetailsActivity extends AppCompatActivity {
 
     TextView childNameText, childAgeText, parentNameText, parentPhoneText, notesText;
-    AppCompatButton addDailyEventButton;
+    AppCompatButton addDailyEventButton, viewReportsButton;
+
+    String childId, childName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,10 @@ public class ChildDetailsActivity extends AppCompatActivity {
         parentPhoneText = findViewById(R.id.parentPhoneText);
         notesText = findViewById(R.id.notesText);
         addDailyEventButton = findViewById(R.id.addDailyEventButton);
+        viewReportsButton = findViewById(R.id.viewReportsButton);
 
-        String childName = getIntent().getStringExtra("childName");
+        childId = getIntent().getStringExtra("childId");
+        childName = getIntent().getStringExtra("childName");
         String childAge = getIntent().getStringExtra("childAge");
         String parentName = getIntent().getStringExtra("parentName");
         String parentPhone = getIntent().getStringExtra("parentPhone");
@@ -49,6 +53,13 @@ public class ChildDetailsActivity extends AppCompatActivity {
 
         addDailyEventButton.setOnClickListener(v -> {
             Intent intent = new Intent(ChildDetailsActivity.this, DailyEventActivity.class);
+            intent.putExtra("childId", childId);
+            intent.putExtra("childName", childName);
+            startActivity(intent);
+        });
+        viewReportsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ChildDetailsActivity.this, DailyReportsActivity.class);
+            intent.putExtra("childId", childId);
             startActivity(intent);
         });
     }

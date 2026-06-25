@@ -76,5 +76,16 @@
             android:background="@drawable/button_background"
             android:layout_marginTop="32dp" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/viewReportsButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="View Daily Reports"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="14dp" />
+
     </LinearLayout>
 </ScrollView>
