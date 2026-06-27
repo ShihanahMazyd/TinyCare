@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import androidx.appcompat.app.AlertDialog;
 
 public class DailyReportsActivity extends AppCompatActivity {
 
@@ -133,15 +134,22 @@ public class DailyReportsActivity extends AppCompatActivity {
                         deleteReportButton.setLayoutParams(deleteButtonParams);
 
                         deleteReportButton.setOnClickListener(v -> {
-                            db.collection("dailyEvents").document(reportId)
-                                    .delete()
-                                    .addOnSuccessListener(unused -> {
-                                        Toast.makeText(this, "Report deleted successfully", Toast.LENGTH_SHORT).show();
-                                        loadDailyReports();
+                            new AlertDialog.Builder(this)
+                                    .setTitle("Delete Report")
+                                    .setMessage("This action cannot be undone. Are you sure you want to delete this report?")
+                                    .setPositiveButton("Delete", (dialog, which) -> {
+                                        db.collection("dailyEvents").document(reportId)
+                                                .delete()
+                                                .addOnSuccessListener(unused -> {
+                                                    Toast.makeText(this, "Report deleted successfully", Toast.LENGTH_SHORT).show();
+                                                    loadDailyReports();
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    Toast.makeText(this, "Failed to delete report", Toast.LENGTH_SHORT).show();
+                                                });
                                     })
-                                    .addOnFailureListener(e -> {
-                                        Toast.makeText(this, "Failed to delete report", Toast.LENGTH_SHORT).show();
-                                    });
+                                    .setNegativeButton("Cancel", null)
+                                    .show();
                         });
 
                         reportLayout.addView(reportText);

@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.app.AlertDialog;
 
 public class ChildDetailsActivity extends AppCompatActivity {
 
@@ -84,20 +85,27 @@ public class ChildDetailsActivity extends AppCompatActivity {
             startActivity(intent);
         });
         deleteChildButton.setOnClickListener(v -> {
-            if (childId == null) {
-                Toast.makeText(this, "Unable to delete child", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            new AlertDialog.Builder(this)
+                    .setTitle("Delete Child")
+                    .setMessage("Are you sure you want to delete this child?")
+                    .setPositiveButton("Delete", (dialog, which) -> {
+                        if (childId == null) {
+                            Toast.makeText(this, "Unable to delete child", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-            db.collection("children").document(childId)
-                    .delete()
-                    .addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Child deleted successfully", Toast.LENGTH_SHORT).show();
-                        finish();
+                        db.collection("children").document(childId)
+                                .delete()
+                                .addOnSuccessListener(unused -> {
+                                    Toast.makeText(this, "Child deleted successfully", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(this, "Failed to delete child", Toast.LENGTH_SHORT).show();
+                                });
                     })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Failed to delete child", Toast.LENGTH_SHORT).show();
-                    });
+                    .setNegativeButton("Cancel", null)
+                    .show();
         });
     }
     @Override

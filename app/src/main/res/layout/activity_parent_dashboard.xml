@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/tinycare_bg">
 
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:background="@color/tinycare_dark"
+        android:title="Parent Dashboard"
+        android:titleTextColor="@android:color/white"
+        app:itemIconTint="@android:color/white"
+        app:menu="@menu/toolbar_menu" />
 
-        <ImageView
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:src="@drawable/tinycare_logo"
-            android:contentDescription="TinyCare Logo" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Parent Dashboard"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="@color/tinycare_dark"
-            android:layout_marginTop="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Follow your child's daily updates"
-            android:textSize="16sp"
-            android:textColor="@color/tinycare_hint"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="28dp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/dailyUpdateButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Daily Updates"
-            android:textAllCaps="false"
-            android:textSize="17sp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/button_background" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/childInfoButton"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Child Information"
-            android:textAllCaps="false"
-            android:textSize="17sp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/button_background"
-            android:layout_marginTop="14dp" />
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:src="@drawable/tinycare_logo"
+                android:contentDescription="TinyCare Logo" />
 
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Follow your child's daily updates"
+                android:textSize="16sp"
+                android:textColor="@color/tinycare_hint"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="28dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/dailyUpdateButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Daily Updates"
+                android:textAllCaps="false"
+                android:textSize="17sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_background" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/childInfoButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Child Information"
+                android:textAllCaps="false"
+                android:textSize="17sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_background"
+                android:layout_marginTop="14dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

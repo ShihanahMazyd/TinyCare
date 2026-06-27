@@ -13,10 +13,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class ParentDashboardActivity extends AppCompatActivity {
 
     AppCompatButton dailyUpdateButton, childInfoButton;
+    MaterialToolbar topAppBar;
     FirebaseFirestore db;
 
     String childId, childName, childAge, parentName, parentEmail, parentPhone, notes;
@@ -37,6 +39,20 @@ public class ParentDashboardActivity extends AppCompatActivity {
 
         dailyUpdateButton = findViewById(R.id.dailyUpdateButton);
         childInfoButton = findViewById(R.id.childInfoButton);
+        topAppBar = findViewById(R.id.topAppBar);
+
+        topAppBar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.logoutMenuItem) {
+                FirebaseAuth.getInstance().signOut();
+
+                Intent intent = new Intent(ParentDashboardActivity.this, ChooseAccountActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+                return true;
+            }
+            return false;
+        });
 
         loadLinkedChild();
 

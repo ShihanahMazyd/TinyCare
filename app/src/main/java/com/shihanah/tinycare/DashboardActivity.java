@@ -10,17 +10,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.widget.Toast;
-import android.content.Intent;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class DashboardActivity extends AppCompatActivity {
 
     AppCompatButton addChildButton, childrenButton, attendanceButton, reportsButton;
+
+    MaterialToolbar topAppBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dashboard);
+        topAppBar = findViewById(R.id.topAppBar);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -32,6 +36,21 @@ public class DashboardActivity extends AppCompatActivity {
         childrenButton = findViewById(R.id.childrenButton);
         attendanceButton = findViewById(R.id.attendanceButton);
         reportsButton = findViewById(R.id.reportsButton);
+        topAppBar.setOnMenuItemClickListener(item -> {
+
+            if (item.getItemId() == R.id.logoutMenuItem) {
+
+                FirebaseAuth.getInstance().signOut();
+
+                Intent intent = new Intent(DashboardActivity.this, ChooseAccountActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+                return true;
+            }
+
+            return false;
+        });
 
         // Add Child
         addChildButton.setOnClickListener(v -> {
