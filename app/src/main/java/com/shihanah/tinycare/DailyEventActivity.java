@@ -22,7 +22,8 @@ public class DailyEventActivity extends AppCompatActivity {
     AppCompatButton saveEventButton;
     FirebaseFirestore db;
 
-    String childId, childName;
+    String childId, childName, reportId;
+    boolean isEditMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,22 @@ public class DailyEventActivity extends AppCompatActivity {
 
         childId = getIntent().getStringExtra("childId");
         childName = getIntent().getStringExtra("childName");
+        reportId = getIntent().getStringExtra("reportId");
+        isEditMode = getIntent().getBooleanExtra("isEditMode", false);
 
         mealEditText = findViewById(R.id.mealEditText);
         napEditText = findViewById(R.id.napEditText);
         moodEditText = findViewById(R.id.moodEditText);
         notesEditText = findViewById(R.id.notesEditText);
         saveEventButton = findViewById(R.id.saveEventButton);
+
+        if (isEditMode) {
+            mealEditText.setText(getIntent().getStringExtra("meal"));
+            napEditText.setText(getIntent().getStringExtra("nap"));
+            moodEditText.setText(getIntent().getStringExtra("mood"));
+            notesEditText.setText(getIntent().getStringExtra("notes"));
+            saveEventButton.setText("Update Report");
+        }
 
         saveEventButton.setOnClickListener(v -> saveDailyEvent());
     }
@@ -69,14 +80,32 @@ public class DailyEventActivity extends AppCompatActivity {
         event.put("mood", mood);
         event.put("notes", notes);
 
-        db.collection("dailyEvents")
-                .add(event)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(this, "Daily event saved successfully", Toast.LENGTH_SHORT).show();
-                    finish();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Failed to save event", Toast.LENGTH_SHORT).show();
-                });
+        if (isEditMode) {
+            if (reportId == null || reportId.isEmpty()) {
+                Toast.makeText(this, "Report ID missing", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            db.collection("dailyEvents").document(reportId)
+                    .set(event)
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(this, "Report updated successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Failed to update report", Toast.LENGTH_SHORT).show();
+                    });
+
+        } else {
+            db.collection("dailyEvents")
+                    .add(event)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(this, "Daily event saved successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Failed to save event", Toast.LENGTH_SHORT).show();
+                    });
+        }
     }
 }

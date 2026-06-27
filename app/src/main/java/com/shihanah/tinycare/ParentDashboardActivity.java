@@ -2,6 +2,7 @@ package com.shihanah.tinycare;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,11 +10,16 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ParentDashboardActivity extends AppCompatActivity {
 
     AppCompatButton dailyUpdateButton, childInfoButton;
+    FirebaseFirestore db;
+
+    String childId, childName, childAge, parentName, parentEmail, parentPhone, notes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,20 +33,72 @@ public class ParentDashboardActivity extends AppCompatActivity {
             return insets;
         });
 
+        db = FirebaseFirestore.getInstance();
+
         dailyUpdateButton = findViewById(R.id.dailyUpdateButton);
         childInfoButton = findViewById(R.id.childInfoButton);
 
+        loadLinkedChild();
+
         dailyUpdateButton.setOnClickListener(v -> {
+            if (childId == null) {
+                Toast.makeText(this, "No child linked to this parent account", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Intent intent = new Intent(ParentDashboardActivity.this, DailyReportsActivity.class);
+            intent.putExtra("childId", childId);
             startActivity(intent);
         });
 
         childInfoButton.setOnClickListener(v -> {
-            Toast.makeText(
-                    ParentDashboardActivity.this,
-                    "Child information will appear here after linking the parent account to a child profile.",
-                    Toast.LENGTH_LONG
-            ).show();
+            if (childId == null) {
+                Toast.makeText(this, "No child linked to this parent account", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent intent = new Intent(ParentDashboardActivity.this, ChildDetailsActivity.class);
+            intent.putExtra("childId", childId);
+            intent.putExtra("childName", childName);
+            intent.putExtra("childAge", childAge);
+            intent.putExtra("parentName", parentName);
+            intent.putExtra("parentEmail", parentEmail);
+            intent.putExtra("parentPhone", parentPhone);
+            intent.putExtra("notes", notes);
+            startActivity(intent);
         });
+    }
+
+    private void loadLinkedChild() {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Toast.makeText(this, "No parent user logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String currentEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        db.collection("children")
+                .whereEqualTo("parentEmail", currentEmail)
+                .limit(1)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        Toast.makeText(this, "No child linked to this email", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    var document = queryDocumentSnapshots.getDocuments().get(0);
+
+                    childId = document.getId();
+                    childName = document.getString("childName");
+                    childAge = document.getString("childAge");
+                    parentName = document.getString("parentName");
+                    parentEmail = document.getString("parentEmail");
+                    parentPhone = document.getString("parentPhone");
+                    notes = document.getString("notes");
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to load child information", Toast.LENGTH_SHORT).show();
+                });
     }
 }

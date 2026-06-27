@@ -1,14 +1,17 @@
 package com.shihanah.tinycare;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -44,6 +47,8 @@ public class DailyReportsActivity extends AppCompatActivity {
     }
 
     private void loadDailyReports() {
+        reportsContainer.removeAllViews();
+
         Query query = db.collection("dailyEvents");
 
         if (childId != null) {
@@ -54,38 +59,104 @@ public class DailyReportsActivity extends AppCompatActivity {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 
+                        String reportId = document.getId();
+                        String reportChildId = document.getString("childId");
                         String childName = document.getString("childName");
                         String meal = document.getString("meal");
                         String nap = document.getString("nap");
                         String mood = document.getString("mood");
                         String notes = document.getString("notes");
 
-                        TextView reportCard = new TextView(DailyReportsActivity.this);
+                        LinearLayout reportLayout = new LinearLayout(DailyReportsActivity.this);
+                        reportLayout.setOrientation(LinearLayout.VERTICAL);
+                        reportLayout.setPadding(dp(18), dp(14), dp(18), dp(14));
+                        reportLayout.setBackgroundColor(Color.WHITE);
 
-                        reportCard.setText(
+                        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT
+                        );
+                        cardParams.setMargins(0, 0, 0, dp(16));
+                        reportLayout.setLayoutParams(cardParams);
+
+                        TextView reportText = new TextView(DailyReportsActivity.this);
+                        reportText.setText(
                                 "Child: " + childName +
                                         "\nMeal: " + meal +
                                         "\nNap: " + nap +
                                         "\nMood: " + mood +
                                         "\nNotes: " + notes
                         );
+                        reportText.setTextSize(17);
+                        reportText.setTextColor(getResources().getColor(R.color.tinycare_dark));
+                        reportText.setGravity(Gravity.CENTER_VERTICAL);
 
-                        reportCard.setTextSize(17);
-                        reportCard.setTextColor(getResources().getColor(R.color.tinycare_dark));
-                        reportCard.setGravity(Gravity.CENTER_VERTICAL);
-                        reportCard.setPadding(dp(18), dp(14), dp(18), dp(14));
-                        reportCard.setBackgroundColor(Color.WHITE);
+                        AppCompatButton editReportButton = new AppCompatButton(DailyReportsActivity.this);
+                        editReportButton.setText("Edit Report");
+                        editReportButton.setTextColor(Color.WHITE);
+                        editReportButton.setTextSize(15);
+                        editReportButton.setAllCaps(false);
+                        editReportButton.setBackgroundResource(R.drawable.button_background);
 
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams editButtonParams = new LinearLayout.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT
+                                dp(50)
                         );
-                        params.setMargins(0, 0, 0, dp(16));
-                        reportCard.setLayoutParams(params);
+                        editButtonParams.setMargins(0, dp(12), 0, 0);
+                        editReportButton.setLayoutParams(editButtonParams);
 
-                        reportsContainer.addView(reportCard);
+                        editReportButton.setOnClickListener(v -> {
+                            Intent intent = new Intent(DailyReportsActivity.this, DailyEventActivity.class);
+                            intent.putExtra("isEditMode", true);
+                            intent.putExtra("reportId", reportId);
+                            intent.putExtra("childId", reportChildId);
+                            intent.putExtra("childName", childName);
+                            intent.putExtra("meal", meal);
+                            intent.putExtra("nap", nap);
+                            intent.putExtra("mood", mood);
+                            intent.putExtra("notes", notes);
+                            startActivity(intent);
+                        });
+
+                        AppCompatButton deleteReportButton = new AppCompatButton(DailyReportsActivity.this);
+                        deleteReportButton.setText("Delete Report");
+                        deleteReportButton.setTextColor(Color.WHITE);
+                        deleteReportButton.setTextSize(15);
+                        deleteReportButton.setAllCaps(false);
+                        deleteReportButton.setBackgroundResource(R.drawable.button_background);
+
+                        LinearLayout.LayoutParams deleteButtonParams = new LinearLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                dp(50)
+                        );
+                        deleteButtonParams.setMargins(0, dp(12), 0, 0);
+                        deleteReportButton.setLayoutParams(deleteButtonParams);
+
+                        deleteReportButton.setOnClickListener(v -> {
+                            db.collection("dailyEvents").document(reportId)
+                                    .delete()
+                                    .addOnSuccessListener(unused -> {
+                                        Toast.makeText(this, "Report deleted successfully", Toast.LENGTH_SHORT).show();
+                                        loadDailyReports();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(this, "Failed to delete report", Toast.LENGTH_SHORT).show();
+                                    });
+                        });
+
+                        reportLayout.addView(reportText);
+                        reportLayout.addView(editReportButton);
+                        reportLayout.addView(deleteReportButton);
+
+                        reportsContainer.addView(reportLayout);
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadDailyReports();
     }
 
     private int dp(int value) {

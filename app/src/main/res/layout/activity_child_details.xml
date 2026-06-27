@@ -87,5 +87,27 @@
             android:background="@drawable/button_background"
             android:layout_marginTop="14dp" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/editChildButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Edit Child"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="14dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/deleteChildButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Delete Child"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="14dp" />
+
     </LinearLayout>
 </ScrollView>

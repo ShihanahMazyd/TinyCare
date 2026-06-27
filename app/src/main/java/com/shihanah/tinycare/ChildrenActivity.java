@@ -52,6 +52,7 @@ public class ChildrenActivity extends AppCompatActivity {
                         String name = document.getString("childName");
                         String age = document.getString("childAge");
                         String parentName = document.getString("parentName");
+                        String parentEmail = document.getString("parentEmail");
                         String parentPhone = document.getString("parentPhone");
                         String notes = document.getString("notes");
 
@@ -78,6 +79,7 @@ public class ChildrenActivity extends AppCompatActivity {
                             intent.putExtra("childName", name);
                             intent.putExtra("childAge", age);
                             intent.putExtra("parentName", parentName);
+                            intent.putExtra("parentEmail", parentEmail);
                             intent.putExtra("parentPhone", parentPhone);
                             intent.putExtra("notes", notes);
                             startActivity(intent);
