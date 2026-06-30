@@ -66,7 +66,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         // Attendance
         attendanceButton.setOnClickListener(v -> {
-            Toast.makeText(DashboardActivity.this, "Attendance screen coming soon", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(DashboardActivity.this, AttendanceActivity.class);
+            startActivity(intent);
         });
 
         // Daily Reports
